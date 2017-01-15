@@ -1,7 +1,7 @@
 #!/bin/bash
 ##############################################################################################################################
 #  APEX applications configuration file
-#  For every application alias two variables: appId and appName
+#  For every application two variables are required: appId and appName. Also an alias should be defined for simpler usage
 #
 #  the following SQL can be used to get this info:
 #      select lower(ALIAS) ALIAS, APPLICATION_ID,  APPLICATION_NAME
