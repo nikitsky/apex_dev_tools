@@ -1,0 +1,5 @@
+[
+	{ "keys": ["super+;"], "command": "my_open" },
+	{ "keys": ["super+alt+up"], "command": "switch_file", "args": {"extensions": ["cpp", "cxx", "cc", "c", "hpp", "hxx", "hh", "h", "ipp", "inl", "m", "mm", "pks", "pkb"]} },
+	{ "keys": ["ctrl+super+c"], "command": "project_file_to_clipboard" }
+]

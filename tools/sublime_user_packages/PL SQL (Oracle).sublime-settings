@@ -1,0 +1,19 @@
+{
+	"extensions":
+	[
+		"sql"
+	],
+    "com.khiltd.abacus.separators":
+    [
+        {
+            "token":                "IS",
+            "gravity":              "right",
+            "preserve_indentation": false
+        },
+        {
+            "token":                "=>",
+            "gravity":              "right",
+            "preserve_indentation": true
+        }
+    ]
+}
