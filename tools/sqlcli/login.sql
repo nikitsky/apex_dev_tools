@@ -1,0 +1,4 @@
+SET SERVEROUT ON
+set SQLFORMAT ANSICONSOLE
+script sqlprompt.js
+
