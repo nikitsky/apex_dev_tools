@@ -6,7 +6,7 @@
 #  the following SQL can be used to get this info:
 #      select lower(ALIAS) ALIAS, APPLICATION_ID,  APPLICATION_NAME
 #      from APEX_APPLICATIONS where OWNER = user;
-#
+#         /or WORKSPACE_DISPLAY_NAME='MY_WORKSPACE_NAME' /
 ##############################################################################################################################
 
 
