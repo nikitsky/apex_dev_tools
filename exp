@@ -1,0 +1,70 @@
+#!/bin/bash
+. config/environments.sh
+. config/applications.sh
+
+export CLASSPATH=.:/Users/nikitsky/Dropbox/development/APEXutils/oracle/ojdbc7.jar:/Users/nikitsky/Dropbox/development/APEXutils
+
+help_and_usage() {
+	echo "Usage: ${0##*/} <application alias> [<environment>]"
+	echo "Help:  ${0##*/} exports application from an APEX environment"
+	echo "       by default, it exports applications from the development environment"
+	echo "       you can export all known application using 'all' instead of the application alias"
+	echo
+	known_apps
+	echo
+	known_env
+
+}
+
+export_app() {
+	if [[ $appId == 0 ]] ; then
+		return
+	fi
+	appAlias=${1:-$application}
+	echo Exporting $appName from $environment environment
+
+	#application export
+	java oracle.apex.APEXExport -db $databaseUrl -user $databaseUser -password $databasePassword -applicationid $appId
+
+	appVersion=$(cat f$appId.sql | grep 'p_flow_version' | tr -d "()'")
+	appVersion=${appVersion##*>}
+
+	lastModified=$(cat f$appId.sql | grep 'p_last_upd_yyyymmddhh24miss' | sort -u | tail -n 1 | tr -d "'")
+	lastModified=${lastModified##*>}
+	lastModified=${lastModified:2:2}${lastModified:4:2}${lastModified:6:2}-${lastModified:8:2}${lastModified:10:2}
+
+	mv f$appId.sql "$appAlias $appVersion ($lastModified).sql"
+
+	echo "   version $appVersion"
+	echo "   modified at $lastModified"
+}
+
+#----------------------------------------------------------------------------------------------------------------------------------
+
+application=$1
+environment=${2:-"dev"}
+
+if [[ -z $application || -z $environment ]] ; then
+	help_and_usage
+	exit 1
+fi
+
+set_env $environment
+if [ ! -d "apex/$environment" ] ; then mkdir "apex/$environment" ; fi
+cd apex/$environment
+
+if [[ "$application" == "all" ]] ; then
+	application=$(all_apps)
+fi
+
+for app in $application
+do
+	if [[ $environment = "stage" ]] ; then
+		set_appId2 $app
+	else
+		set_appId1 $app
+	fi
+	export_app $app
+done
+
+say "export complete"
