@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<aliases>
+   <alias name="log6">
+      <description/>
+      <queries>
+         <query>
+            <sql><![CDATA[select id, to_char(TIME_STAMP, 'hh24:mi:ss') TS, SCOPE, case LOGGER_LEVEL when 1  then 'P'when 2  then 'E!'when 4  then 'W'when 8  then 'I'when 16 then 'D'when 32 then 'T'end L, substr(text,1,60) TEXT, MODULE, USER_NAME "USER", CLIENT_IDENTIFIER as CI FROM LOGGER_LOGS_60_MIN order by ID;]]></sql>
+         </query>
+      </queries>
+   </alias>
+   <alias name="log">
+      <description><![CDATA[Shows log records for last 5 minutes]]></description>
+      <queries>
+         <query>
+            <sql><![CDATA[select id, case LOGGER_LEVEL when 1  then 'P' when 2  then 'E' when 4  then 'W' when 8  then 'I' when 16 then 'D' when 32 then 'T' end L, scope, substr(Text, 1, 80) TEXT, USER_NAME as "USR" from logger_logs_5_min;]]></sql>
+         </query>
+      </queries>
+   </alias>
+   <alias name="logf">
+      <description/>
+      <queries>
+         <query>
+            <sql><![CDATA[select id, to_char(TIME_STAMP, 'hh24:mi:ss') TS, SCOPE, case LOGGER_LEVEL when 1  then 'P'when 2  then 'E!'when 4  then 'W'when 8  then 'I'when 16 then 'D'when 32 then 'T'end L, substr(text,1,60) TEXT, MODULE, USER_NAME "USER", CLIENT_IDENTIFIER as CI FROM LOGGER_LOGS where rownum<100 order by ID;]]></sql>
+         </query>
+      </queries>
+   </alias>
+   <alias name="ld">
+      <description><![CDATA[Add a separator record to the logs table]]></description>
+      <queries>
+         <query>
+            <sql><![CDATA[begin logger.log('-------------'); end;]]></sql>
+         </query>
+      </queries>
+   </alias>
+   <alias name="invalid">
+      <description/>
+      <queries>
+         <query>
+            <sql><![CDATA[SELECT owner,
+       object_type,
+       object_name,
+       status
+FROM   dba_objects
+WHERE  status = 'INVALID'
+and OWNER=USER
+ORDER BY owner, object_type, object_name]]></sql>
+         </query>
+      </queries>
+   </alias>
+   <alias name="cols">
+      <description><![CDATA[Returns columns list of a view or table from the first parameter]]></description>
+      <queries>
+         <query>
+            <sql><![CDATA[select column_name||',' as COL from ALL_TAB_COLUMNS where upper(table_name) = upper(:one) order by COLUMN_ID;]]></sql>
+         </query>
+      </queries>
+   </alias>
+</aliases>
