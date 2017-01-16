@@ -1,10 +1,10 @@
 # APEX development tools
 
-Set of scripts and templates for comfortable APEX development
+Set of scripts and templates for comfortable APEX development on Mac OS
 
 ##Tools
-To effectively use this set of scripts and templates, the following additional tools are recommended: 
-All these tools are optional, but some changes would be required if you are using sqlplus instead of sqlcl, for example. 
+To effectively use this set of scripts and templates, the following additional tools supposed to be used: 
+(All these tools are optional, but some changes would be required in the scripts if you are using sqlplus instead of sqlcl, for example)
 
 ###Sublime text
 Sublime Text is a sophisticated text editor. It supports a ton of tricks and makes your development work efficient and enjoyable. 
@@ -27,8 +27,9 @@ If you are going to use it, after installation from the Kaleidoscope integration
 
 #Install and configure
 ###Prepare project directory
-1. create a directory and extract all files from this archive to it
+1. create a directory and clone this repository to it
 2. open _Sublime Text_, do _File -> New window_, than _Project -> Add folder to Project_..., select the project directory and _Project -> Save Project As..._
+3. 
 
 ###Configure environments
 Open ```config/environments.sh``` file and put your environments credentials.
@@ -57,10 +58,13 @@ select lower(ALIAS) ALIAS, APPLICATION_ID,  APPLICATION_NAME
 Also you can fetch all applications from your APEX workspace using ```WORKSPACE_DISPLAY_NAME='MY_WORKSPACE_NAME'``` in section ```where```.
 
 ##SQLcl
-add a line to your ```.bash_profile``` file
-```shell
-export SQLPATH=<project dir>/tools/sqlcl
+1. be sure that java is configured, sqlcl is installed and available within PATH. Type ```sql``` in the terminal to check.
+2. type ```./sc``` and after login type the following:
+```sql
+alias load tools/sqlcl/aliases.xml
 ```
+it will load sqlcl aliases. 
+
 
 ##Sublime text
 Copy everything from ```<project dir>/tools/sublime_user_packages``` to Sublime Text user configuration directory. To find it, go to menu _Preferences -> Browse packages..._ and find User directory.
