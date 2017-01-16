@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <aliases>
    <alias name="log6">
-      <description/>
+      <description><![CDATA[Shows log records for last hour]]></description>
       <queries>
          <query>
             <sql><![CDATA[select id, to_char(TIME_STAMP, 'hh24:mi:ss') TS, SCOPE, case LOGGER_LEVEL when 1  then 'P'when 2  then 'E!'when 4  then 'W'when 8  then 'I'when 16 then 'D'when 32 then 'T'end L, substr(text,1,60) TEXT, MODULE, USER_NAME "USER", CLIENT_IDENTIFIER as CI FROM LOGGER_LOGS_60_MIN order by ID;]]></sql>
@@ -17,7 +17,7 @@
       </queries>
    </alias>
    <alias name="logf">
-      <description/>
+      <description><![CDATA[Shows last 100 logger records]]></description>
       <queries>
          <query>
             <sql><![CDATA[select id, to_char(TIME_STAMP, 'hh24:mi:ss') TS, SCOPE, case LOGGER_LEVEL when 1  then 'P'when 2  then 'E!'when 4  then 'W'when 8  then 'I'when 16 then 'D'when 32 then 'T'end L, substr(text,1,60) TEXT, MODULE, USER_NAME "USER", CLIENT_IDENTIFIER as CI FROM LOGGER_LOGS where rownum<100 order by ID;]]></sql>
@@ -33,7 +33,7 @@
       </queries>
    </alias>
    <alias name="invalid">
-      <description/>
+      <description><![CDATA[Shows invalid objects]]></description>
       <queries>
          <query>
             <sql><![CDATA[SELECT owner,
