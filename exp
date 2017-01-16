@@ -2,7 +2,33 @@
 . config/environments.sh
 . config/applications.sh
 
-export CLASSPATH=.:/Users/nikitsky/Dropbox/development/APEXutils/oracle/ojdbc7.jar:/Users/nikitsky/Dropbox/development/APEXutils
+#
+# Set CLASSPATH to be canonical paths
+#
+function setupCLASSPATH {
+	#
+	# resolve the folder where this script is located, traversing any symlinks
+	#
+	PRG="$0"
+	# loop while $PRG is a symlink
+	while [ -h "$PRG" ] ; do
+	  # figure out target of the symlink
+	  ls=`ls -ld "$PRG"`
+	  link=`expr "$ls" : '.*-> \(.*\)$'`
+	  # traverse to the target of the symlink
+	  if expr "$link" : '/.*' > /dev/null; then
+	  PRG="$link"
+	  else
+	  PRG=`dirname "$PRG"`"/$link"
+	  fi
+	done
+
+	#
+	# PROJECT_HOME is where we live.  Lets get an exact path.
+	PROJECT_HOME=`dirname "$PRG"`
+	PROJECT_HOME=`cd "${PROJECT_HOME}" > /dev/null && pwd`
+	export CLASSPATH=:$PROJECT_HOME/tools/oracle/ojdbc7.jar:$PROJECT_HOME/tools
+}
 
 help_and_usage() {
 	echo "Usage: ${0##*/} <application alias> [<environment>]"
@@ -49,6 +75,8 @@ if [[ -z $application || -z $environment ]] ; then
 	exit 1
 fi
 
+setupCLASSPATH
+
 set_env $environment
 if [ ! -d "apex/$environment" ] ; then mkdir "apex/$environment" ; fi
 cd apex/$environment
@@ -67,4 +95,4 @@ do
 	export_app $app
 done
 
-say "export complete"
+# say "export complete"
