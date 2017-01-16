@@ -29,7 +29,6 @@ If you are going to use it, after installation from the Kaleidoscope integration
 ###Prepare project directory
 1. create a directory and clone this repository to it
 2. open _Sublime Text_, do _File -> New window_, than _Project -> Add folder to Project_..., select the project directory and _Project -> Save Project As..._
-3. 
 
 ###Configure environments
 Open ```config/environments.sh``` file and put your environments credentials.
@@ -107,15 +106,16 @@ To create a database object from the template:
 - Control + Command + c (⌃ + ⌘ + c) copies current file path relatively to the project root. Just put @ on the beginning and use in sqlcl to execute
 
 ### useful sqlcl commands
-log
-ld
-col
-invalid
-script apxexp
-script apximp
-script kill
-script logr
-script sqlprompt
-script transpose
+(description to be added)
+- log 
+- ld 
+- col 
+- invalid 
+- script apxexp 
+- script apximp 
+- script kill 
+- script logr 
+- script sqlprompt 
+- script transpose 
 
 
