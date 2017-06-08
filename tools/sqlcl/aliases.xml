@@ -55,4 +55,12 @@ ORDER BY owner, object_type, object_name]]></sql>
          </query>
       </queries>
    </alias>
+   <alias name="objects">
+      <description><![CDATA[Show objects from schema]]></description>
+      <queries>
+         <query>
+            <sql><![CDATA[select OBJECT_TYPE, OBJECT_NAME from USER_OBJECTS where upper(OBJECT_NAME) like '%'||upper(:one)||'%' and OBJECT_TYPE!='INDEX' order by OBJECT_TYPE, OBJECT_NAME;]]></sql>
+         </query>
+      </queries>
+   </alias>
 </aliases>
